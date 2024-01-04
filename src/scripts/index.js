@@ -1,7 +1,7 @@
 import '../pages/index.css';
 import { initialCards } from './cards.js'; 
-import { addCard } from './card.js'; 
-import { exitPopup, runPopup } from './modal.js'; 
+import { createCard, likeCard, deleteCard } from './card.js'; 
+import { closePopup, runPopup, closeByOverlay } from './modal.js'; 
 
 const popupEditor = document.querySelector('.popup_type_edit'); //Находим попап редактирования
 const popupAdder = document.querySelector('.popup_type_new-card'); //Находим попап добавления карточки
@@ -20,6 +20,29 @@ const jobInput = document.querySelector('.popup__input_type_description'); //п�
 const placeInput = document.querySelector('.popup__input_type_card-name'); //поле ввода названия места
 const srcInput = document.querySelector('.popup__input_type_url'); //поле ввода ссылки на картинку
 
+const template = document.querySelector('#card-template')//тимплейт
+
+const popupPic = document.querySelector('.popup_type_image'); //попап с картинкой
+const popupImg = popupPic.querySelector('.popup__image');
+const popupImgSignature = popupPic.querySelector('.popup__caption');
+
+
+const sectionCards = document.querySelector('.places__list')
+
+//Открытие попапа с картинкой 
+function openPic(name, link) {
+
+  runPopup(popupPic);
+
+  popupImg.src = link;
+  popupImg.alt = name;
+  popupImgSignature.textContent = name;
+}
+
+function addCard(name, link) {
+  const card = createCard(name, link, deleteCard, likeCard, openPic ); //Берем карточку
+  sectionCards.prepend(card); //и вставляем ее на место
+}
 
 initialCards.forEach(function(elem) {
   addCard(elem.name, elem.link);
@@ -28,16 +51,11 @@ initialCards.forEach(function(elem) {
 closeButtons.forEach((button) => {
   // находим ближайший к крестику попап 
   const popup = button.closest('.popup');
-  const popupContainer = button.closest('.popup__content');
   
   // устанавливаем обработчик закрытия на крестик
-  button.addEventListener('click', () => exitPopup(popup));
+  button.addEventListener('click', () => closePopup(popup));
 
-  popup.addEventListener('mousedown', function(evt) {
-    if (!popupContainer.contains(evt.target)) {
-      exitPopup(popup);
-    }
-  });  
+  popup.addEventListener('mousedown', closeByOverlay);  
 });
 
 
@@ -54,36 +72,38 @@ addBtn.addEventListener('click', function() {
 });
 
 
+
+
 // Находим форму в DOM
-const formElement = document.querySelector('.popup__form');
+const formEdit = document.forms["edit-profile"];
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
-function handleFormSubmit(evt) {
+function handleEditFormSubmit(evt) {
   evt.preventDefault(); 
 
   profileJob.textContent = jobInput.value;
   profileName.textContent  = nameInput.value;
 
-  exitPopup(popupEditor)
+  closePopup(popupEditor)
 }
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', handleFormSubmit);
+formEdit.addEventListener('submit', handleEditFormSubmit);
 
-function addFormSubmit(evt) {
+function handleAddFormSubmit(evt) {
   evt.preventDefault();
  
   addCard(placeInput.value, srcInput.value);
 
   evt.target.reset()
 
-  exitPopup(popupAdder);
+  closePopup(popupAdder);
 }
 
-popupAdder.addEventListener('submit', addFormSubmit);
+popupAdder.addEventListener('submit', handleAddFormSubmit);
 
 
 
-
+export { template };

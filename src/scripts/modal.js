@@ -1,4 +1,4 @@
-function exitPopup(popupElement) {
+function closePopup(popupElement) {
   popupElement.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', closeByEscape); 
 }
@@ -6,7 +6,7 @@ function exitPopup(popupElement) {
 function closeByEscape(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_is-opened') 
-    exitPopup(openedPopup);
+    closePopup(openedPopup);
   }
 }
 
@@ -16,18 +16,12 @@ function runPopup(popupElement) {
   document.addEventListener('keydown', closeByEscape); 
 }
 
-//Открытие попапа с картинкой 
-function openPic(name, link) {
-  
-  const popupPic = document.querySelector('.popup_type_image'); //попап с картинкой
-  const popupImg = popupPic.querySelector('.popup__image');
-  const popupImgSignature = popupPic.querySelector('.popup__caption');
 
-  runPopup(popupPic);
 
-  popupImg.src = link;
-  popupImg.alt = name;
-  popupImgSignature.textContent = name;
+function closeByOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.currentTarget);
+  }
 }
 
-export { openPic, exitPopup, runPopup };
+export { closePopup, runPopup, closeByOverlay };
