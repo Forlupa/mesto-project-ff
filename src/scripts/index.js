@@ -20,7 +20,7 @@ const jobInput = document.querySelector('.popup__input_type_description'); //п�
 const placeInput = document.querySelector('.popup__input_type_card-name'); //поле ввода названия места
 const srcInput = document.querySelector('.popup__input_type_url'); //поле ввода ссылки на картинку
 
-const template = document.querySelector('#card-template')//тимплейт
+const cardTemplate = document.querySelector('#card-template')//тимплейт
 
 const popupPic = document.querySelector('.popup_type_image'); //попап с картинкой
 const popupImg = popupPic.querySelector('.popup__image');
@@ -106,4 +106,4 @@ popupAdder.addEventListener('submit', handleAddFormSubmit);
 
 
 
-export { template };
+export { cardTemplate };

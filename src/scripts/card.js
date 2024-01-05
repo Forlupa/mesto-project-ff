@@ -1,10 +1,9 @@
 
-import { template } from './index.js'; 
+import { cardTemplate } from './index.js'; 
 
 
 function createCard( name, link, onDump, onLike, onImg ) {
-  const templateClone = template.content.cloneNode(true)//клонировали типплейт
-  const card = templateClone.querySelector('.card').cloneNode(true);//клонировали содержимое
+  const card = cardTemplate.content.querySelector('.card').cloneNode(true);//клонировали типплейт
   const cardTitle = card.querySelector(".card__title");//нашли название
   const cardImage = card.querySelector('.card__image');//нашли картинку
   const cardDump = card.querySelector('.card__delete-button');//нашли кнопку с мусоркой
