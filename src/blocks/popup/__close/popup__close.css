@@ -18,6 +18,17 @@
   cursor: pointer;
 }
 
+@media screen and (max-width: 568px) {
+  .popup__close {
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+    top: -36px;
+    right: 0px;
+  }
+}
+
+
 .popup__close:hover {
   opacity: 0.6;
 }
