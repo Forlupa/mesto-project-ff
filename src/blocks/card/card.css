@@ -12,4 +12,22 @@
   border-radius: 10px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card__like-box {
+  width: 22px;
+  height: 35px;
+}
+
+.card__like-counter {
+  text-align: center;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
 }
