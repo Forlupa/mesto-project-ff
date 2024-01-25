@@ -1,7 +1,6 @@
-import { cardTemplate } from './index.js'; 
 import { removeCard, putLike, deleteLike } from './api.js'; 
 
-
+const cardTemplate = document.querySelector('#card-template')//тимплейт
 
 function createCard( item, userId, onDump, onLike, onImg ) {
   const card = cardTemplate.content.querySelector('.card').cloneNode(true);//клонировали типплейт

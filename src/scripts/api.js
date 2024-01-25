@@ -20,9 +20,7 @@ const getUserInfo = async () => {
     headers: config.headers,
   })
   .then((res) => getResponse(res))
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  })
+  
 };
 
 const getInitialCards = async () => {
@@ -30,9 +28,7 @@ const getInitialCards = async () => {
     headers: config.headers,
   })
   .then((res) => getResponse(res))
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  })
+  
 };
 
 const getInitialInfo = async () => {
@@ -49,9 +45,7 @@ const updateProfile = async (profileData) => {
     }),
   })
   .then((res) => getResponse(res))
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  })
+  
 };
 
 const uploadAvatar = async (profileData) => {
@@ -63,9 +57,7 @@ const uploadAvatar = async (profileData) => {
     }),
   })
   .then((res) => getResponse(res))
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  })
+  
 };
 
 const uploadCard = async (cardsData) => {
@@ -78,9 +70,7 @@ const uploadCard = async (cardsData) => {
     }),
   })
   .then((res) => getResponse(res))
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  })
+  
 };
 
 const removeCard = async (cardId) => {
@@ -89,9 +79,7 @@ const removeCard = async (cardId) => {
     headers: config.headers,
   })
   .then((res) => getResponse(res))
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  })
+  
 };
 
 const putLike = async (cardId) => {
@@ -100,9 +88,7 @@ const putLike = async (cardId) => {
     headers: config.headers,
   })
   .then((res) => getResponse(res))
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  })
+  
 };
 
 const deleteLike = async (cardId) => {
@@ -111,9 +97,7 @@ const deleteLike = async (cardId) => {
     headers: config.headers,
   })
   .then((res) => getResponse(res))
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  })
+  
 };
 
 export {  getInitialInfo, updateProfile, uploadCard, removeCard, putLike, deleteLike, uploadAvatar };

@@ -25,8 +25,6 @@ const jobInput = document.querySelector('.popup__input_type_description'); //п�
 
 const avatarInput = document.querySelector('.popup__input_type_url'); 
 
-const cardTemplate = document.querySelector('#card-template')//тимплейт
-
 const popupPic = document.querySelector('.popup_type_image'); //попап с картинкой
 const popupImg = popupPic.querySelector('.popup__image');
 const popupImgSignature = popupPic.querySelector('.popup__caption');
@@ -37,7 +35,10 @@ const sectionCards = document.querySelector('.places__list')
 function btnLoading(loading = "start", btn) {
   if (loading === "start") {
     btn.textContent = 'Сохранение...'
-  }  
+  } else {
+    btn.textContent = 'Сохранить'
+    btn.classList.add(settings.inactiveButton);
+  }
 }
 
 
@@ -110,7 +111,7 @@ const formEdit = document.forms["edit-profile"];
 // она никуда отправляться не будет
 function handleEditFormSubmit(evt) {
   evt.preventDefault(); 
-  btnLoading("start", formEdit.querySelector(".popup__button"));
+  btnLoading("start", evt.submitter);
 
   updateProfile({
     name: formEdit.name.value,
@@ -124,7 +125,7 @@ function handleEditFormSubmit(evt) {
       console.log(err);
     })
     .finally(() => {
-      btnLoading(false, formEdit.querySelector(".popup__button"));
+      btnLoading(false, evt.submitter);
     });
 
 }
@@ -140,21 +141,22 @@ const formAdder = document.forms["new-place"];
 
 function handleAddFormSubmit(evt) {
   evt.preventDefault(); 
-  btnLoading("start", formAdder.querySelector(".popup__button"));
+  btnLoading("start", evt.submitter);
 
   uploadCard({
     name: formAdder.elements["place-name"].value,
     link: formAdder.link.value,
   })
     .then((uploadedCard) => {
-      addCard(uploadedCard, "start",);
+      addCard(uploadedCard, userId, "start",);
       closePopup(popupAdder);
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      btnLoading(false, formAdder.querySelector(".popup__button"));
+      btnLoading(false, evt.submitter);
+      evt.target.reset()
     });
 
 }
@@ -172,7 +174,7 @@ const formAvatar = document.forms["new-avatar"];
 
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault(); 
-  btnLoading("start", formAvatar.querySelector(".popup__button"));
+  btnLoading("start", evt.submitter);
 
   uploadAvatar({
     avatar: formAvatar.link.value,
@@ -185,7 +187,8 @@ function handleAvatarFormSubmit(evt) {
       console.log(err);
     })
     .finally(() => {
-      btnLoading(false, formAvatar.querySelector(".popup__button"));
+      btnLoading(false, evt.submitter);
+      evt.target.reset()
     });
 
 }
@@ -209,4 +212,3 @@ getInitialInfo()
     console.log(err);
   });
 
-  export { cardTemplate };
