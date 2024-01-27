@@ -1,3 +1,5 @@
+import { clearValidation, settings } from './validate.js'; 
+
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', closeByEscape); 

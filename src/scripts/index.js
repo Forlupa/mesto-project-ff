@@ -29,15 +29,15 @@ const popupPic = document.querySelector('.popup_type_image'); //попап с к
 const popupImg = popupPic.querySelector('.popup__image');
 const popupImgSignature = popupPic.querySelector('.popup__caption');
 
-const sectionCards = document.querySelector('.places__list')
+const sectionCards = document.querySelector('.places__list');
 
+let userId;
 
 function btnLoading(loading = "start", btn) {
   if (loading === "start") {
     btn.textContent = 'Сохранение...'
   } else {
     btn.textContent = 'Сохранить'
-    btn.classList.add(settings.inactiveButton);
   }
 }
 
@@ -142,6 +142,7 @@ const formAdder = document.forms["new-place"];
 function handleAddFormSubmit(evt) {
   evt.preventDefault(); 
   btnLoading("start", evt.submitter);
+  
 
   uploadCard({
     name: formAdder.elements["place-name"].value,
@@ -150,13 +151,14 @@ function handleAddFormSubmit(evt) {
     .then((uploadedCard) => {
       addCard(uploadedCard, userId, "start",);
       closePopup(popupAdder);
+      clearValidation(evt.target, settings)
+      evt.target.reset()
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
       btnLoading(false, evt.submitter);
-      evt.target.reset()
     });
 
 }
@@ -182,13 +184,14 @@ function handleAvatarFormSubmit(evt) {
     .then((uploadedAvatar) => {
       uploadNewAvatar(uploadedAvatar);
       closePopup(popupAvatar);
+      clearValidation(evt.target, settings)
+      evt.target.reset();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
       btnLoading(false, evt.submitter);
-      evt.target.reset()
     });
 
 }
@@ -203,7 +206,7 @@ getInitialInfo()
   .then((result) => {
     const userInfo = result[0];
     const initialCards = result[1];
-    const userId = userInfo._id;
+    userId = userInfo._id;
     fillProfile(userInfo);
     renderCards(initialCards, userId);
     uploadNewAvatar(userInfo)
